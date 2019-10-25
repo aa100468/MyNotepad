@@ -1,0 +1,12 @@
+	var xmlhttp = new XMLHttpRequest();
+            //xmlhttp.open(" GET","Sjldcontroller?k1=v1&k2=v2",true);
+            xmlhttp.open("POST","Sjldcontroller",true);
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xmlhttp.send()；//不传参
+            //xmlhttp.send("key1=value1&key2=value2");//传参
+            xmlhttp.onreadystatechange=function(){
+                if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                    
+                    }
+            }
+               

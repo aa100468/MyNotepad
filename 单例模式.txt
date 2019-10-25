@@ -1,0 +1,49 @@
+//饿汉式
+    private SingleTon(){}
+    private static final SingleTon singleton = new SingleTon();
+    public static SingleTon getSingleton(){
+        return singleton;
+    }
+
+//懒汉式
+    private SingleTon(){}
+    private static SingleTon singleTon = null;
+    public synchronized static  SingleTon getSingleTon(){
+        if(singleTon == null){
+            singleTon = new SingleTon();
+        }
+        return singleTon;
+    }
+//双重检测
+    private SingleTon(){}
+    private volatile static SingleTon singleTon = null;
+    public static SingleTon getSingleTon(){
+        if(singleTon == null){
+            synchronized (SingleTon.class){
+                if(singleTon == null){
+                    singleTon = new SingleTon();
+                }
+            }
+        }
+        return singleTon;
+    }
+
+//枚举
+public enum SingleTon{
+	SINGLETON;
+
+}
+
+//生命周期托管
+public class GetObject{
+	private static HashMap<String, Object> hashMap = new HashMap<>();
+    	public static <E>E getObject(String objName) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        		E obj = (E) hashMap.get(objName);
+       	if(obj == null){
+            		obj = (E)Class.forName(objName).newInstance();
+            		hashMap.put(objName,obj);
+       	}
+        	return obj;
+    }
+
+} 

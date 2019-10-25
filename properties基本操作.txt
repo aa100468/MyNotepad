@@ -1,0 +1,26 @@
+import java.io.*;
+import java.util.Properties;
+public class TestMain {
+    public static void main(String[] args){
+        String url = "src/properties/p.properties";
+        try {
+            Properties properties = new Properties();
+//            BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(url));
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(url));
+            properties.load(bufferedReader);
+            OutputStream fos = new FileOutputStream(url);
+            properties.setProperty("8", "9");//增加，改
+            properties.remove("p");//删除
+            properties.store(fos, null);
+            
+//            查询
+//            Enumeration enumeration = properties.propertyNames();
+//            while (enumeration.hasMoreElements()){
+//                String k = (String)enumeration.nextElement();
+//                System.out.println(k + ":" + properties.getProperty(k));
+//            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

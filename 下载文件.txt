@@ -1,0 +1,36 @@
+package controller;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+
+public class Dowload extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String fileName = req.getParameter("a");
+        fileName = URLEncoder.encode(fileName,"utf-8");
+        System.out.println(fileName);
+        InputStream inputStream = new FileInputStream("C:\\Users\\admin\\Desktop\\vpn\\"+fileName);
+        resp.setContentType("application/x-msdownload");
+        resp.setHeader("Content-disposition","attachment;弹出框的名字");
+        OutputStream outputStream = resp.getOutputStream();
+        byte[] b = new byte[1024];
+        int length = inputStream.read(b);
+        while (length != -1) {
+            outputStream.write(b,0,length);
+            outputStream.flush();
+            length = inputStream.read(b);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.doPost(req,resp);
+    }
+}

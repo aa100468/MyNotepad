@@ -1,0 +1,90 @@
+package com.company;
+
+
+import java.io.*;
+import java.lang.reflect.Field;
+
+public class CopyFile {
+
+    public static void cloneFile(File file,String newPath){
+        String oldFilePath = file.getAbsolutePath();
+        String newFilePath = newPath+oldFilePath.split(":")[1];
+        File newFile = new File(newFilePath);
+        File[] files = file.listFiles();
+        if(files!=null){
+            newFile.mkdirs();
+            if(files.length!=0){
+                for(File f:files){
+                    cloneFile(f,newPath);
+                }
+            }
+        }else{
+            BufferedInputStream bis = null;
+            BufferedOutputStream bos = null;
+
+            BufferedReader br = null;
+            BufferedWriter bw = null;
+            try {
+                  //字节流
+//                bis = new BufferedInputStream(new FileInputStream(file));
+//                bos = new BufferedOutputStream(new FileOutputStream(newFile));
+//
+//                byte[] b = new byte[1024];
+//                int count = bis.read(b);
+//                while(count!=-1){
+//                    bos.write(b,0,count);
+//                    bos.flush();
+//                    count = bis.read(b);
+//                }
+                 //字符流
+                br = new BufferedReader(new FileReader(file));
+                bw = new BufferedWriter(new FileWriter(newFile));
+
+                String content = br.readLine();
+                while (content != null){
+                    bw.write(content);
+                    bw.newLine();
+                    content = br.readLine();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+//                try {
+//                    if(bis!=null) {
+//                        bis.close();
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                try {
+//                    if(bos!=null) {
+//                        bos.close();
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+
+
+                try {
+                    if(bw!=null) {
+                        bw.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if(br!=null) {
+                        br.close();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        CopyFile.cloneFile(new File("D:\\dowload\\java_error_in_idea_10184.log"),"D:\\dowload\\xinde");
+    }
+}

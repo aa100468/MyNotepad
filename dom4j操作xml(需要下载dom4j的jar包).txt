@@ -1,0 +1,124 @@
+package dom4j;
+
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        SAXReader reader = new SAXReader();
+        Document document = reader.read(new File("./src/main/java/dom4j/test.xml"));
+        Element school = document.getRootElement();
+//        System.out.println(school.getStringValue());
+        query(school);
+//        List<Element> grads = school.elements();
+//        for(int i = 0; i < grads.size(); i ++){
+//            System.out.println(grads.get(i).attribute("id").getValue());
+//            List<Element> classs = grads.get(i).elements();
+//            for(Element cla : classs){
+//                System.out.println(cla.attribute("id").getValue());
+//                List<Element> teachers = cla.elements("teacher");
+//                for(Element teacher : teachers){
+//                    System.out.println(teacher.getStringValue()+":"+teacher.attribute("age").getValue()+" "+teacher.attribute("sex").getValue());
+//                }
+//                List<Element> students = cla.elements("student");
+//                for(int j = 0; j < students.size(); j ++){
+//                    System.out.println(students.get(j).getStringValue()+":"
+//                    +students.get(j).attribute(0).getValue());
+//                }
+//            }
+//        }
+    }
+
+
+
+    private static void query(Element root) throws Exception {
+
+        List<Element> elements = root.elements();
+        if(elements.size() == 0){
+            System.out.println(root.getStringValue());
+            List<Attribute> as = root.attributes();
+            for(Attribute a : as){
+                System.out.println(a.getName()+":"+a.getValue());
+            }
+            return;
+        }
+        List<Attribute> as = root.attributes();
+        for(Attribute a : as){
+            System.out.println(a.getName()+":"+a.getValue());
+        }
+        for(Element e : elements){
+            query(e);
+        }
+    }
+}
+
+//xml
+//<?xml  version="1.0" encoding="UTF-8"?>
+//<!DOCTYPE school [
+//<!ELEMENT school (grad*)>
+//<!ELEMENT grad   (class*)>
+//<!ELEMENT class  (teacher,student*)>
+//<!ELEMENT teacher (#PCDATA)>
+//<!ELEMENT student (#PCDATA)>
+//
+//<!ATTLIST grad id CDATA "231">
+//<!ATTLIST class id CDATA #IMPLIED>
+//<!ATTLIST teacher
+//        sex CDATA #IMPLIED
+//        age CDATA #IMPLIED
+//        >
+//
+//<!ATTLIST student name CDATA "111">
+//        ]>
+//
+//<school>
+//<grad id="1">
+//<class id="1.1">
+//<teacher sex="男" age="18">马云</teacher>
+//<student name="111">a</student>
+//<student name="222">b</student>
+//<student name="333">c</student>
+//</class>
+//<class id="1.2">
+//<teacher sex="女" age="19">马云</teacher>
+//<student name="444">e</student>
+//<student name="555">f</student>
+//<student name="666">g</student>
+//</class>
+//</grad>
+//<grad id="2">
+//<class id="2.1">
+//<teacher sex="女" age="10">马云</teacher>
+//<student name="777">h</student>
+//<student name="888">i</student>
+//<student name="999">j</student>
+//</class>
+//<class id="2.2">
+//<teacher sex="男" age="55">马云</teacher>
+//<student name="123">k</student>
+//<student name="456">l</student>
+//<student name="789">m</student>
+//</class>
+//</grad>
+//<grad id="3">
+//<class id="3.1">
+//<teacher sex="女的" age="16">马云</teacher>
+//<student name="111">n</student>
+//<student name="111">o</student>
+//<student name="111">p</student>
+//</class>
+//<class id="3.2">
+//<teacher sex="男" age="18">马云</teacher>
+//<student name="111">q</student>
+//<student name="111">r</student>
+//<student name="111">s</student>
+//</class>
+//</grad>
+//</school>

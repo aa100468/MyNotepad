@@ -1,0 +1,31 @@
+import java.io.*;
+
+public class ObjectStream {
+    public static void main(String[] args) {
+    try {
+//           序列化
+//            TestObject tO = new TestObject();
+//            FileOutputStream fos = new FileOutputStream("D://dowload//TestObject.txt");
+//            ObjectOutputStream oos = new ObjectOutputStream(fos);
+//            oos.writeObject(tO);
+//            oos.flush();
+
+//            反序列化
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("D://dowload//TestObject.txt"));
+            TestObject tO = (TestObject)ois.readObject();
+            System.out.println(tO);
+            tO.func();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class TestObject implements Serializable {
+    private long serialVersionUID = 1;
+
+    public String filed = "我是可序列化类的测试";
+    public void func(){
+        System.out.println(filed);
+    }
+}

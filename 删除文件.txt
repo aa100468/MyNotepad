@@ -1,0 +1,11 @@
+ private static void deleteRecursively(File file){
+	if (file.isDirectory()){
+		File[] listFiles = file.listFiles();
+		if (listFiles != null && listFiles.length != 0){
+			for (File subFile : listFiles){
+				deleteRecursively(subFile);
+			}
+		}
+	}
+	file.delete();
+}

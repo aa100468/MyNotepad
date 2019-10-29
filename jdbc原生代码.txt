@@ -1,5 +1,6 @@
 static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 static final String DB_URL = "jdbc:mysql://localhost:3306/shopping?useUnicode=true&characterEncoding=utf-8";
+//如果依旧乱码，尝试设置虚拟机：-Dfile.encoding=UTF-8
 
 
     static final String USER = "root";

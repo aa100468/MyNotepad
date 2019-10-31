@@ -1,0 +1,53 @@
+<script>
+		
+	var xmlhttp = new XMLHttpRequest();
+            //xmlhttp.open(" GET","Sjldcontroller?k1=v1&k2=v2",true);
+            xmlhttp.open("POST","Sjldcontroller",true);//默认是true，表示异步的，false表示同步的
+            xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            
+            xmlhttp.onreadystatechange=function(){
+                if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                    var responseText = xmlhttp.responseText;//接收后端响应回来的信息(字符串)
+                }
+            }
+	// xmlhttp.send()；//不传参
+	var json = {
+		"name" : "小明",
+		"sex" : 16
+	}
+	//前端向后端发送json
+	var jsonStr = JSON.stringify(json);//或者直接写个json格式的字符串也行
+            xmlhttp.send("k1="+jsonStr);//传参
+			
+			
+			
+			
+	//前端接受后端的json
+	function acceptJson(){
+		var responseText = xmlhttp.responseText;//String json格式
+		var jsonObject = JSON.parse(responseText);//JS对象---->与Java中的JSONObject对应的对象
+		var areaList = jsonObject.areaList;//JS对象---->与Java中ArrayList<Area>
+		for(var i=0;i<areaList.length;i++){
+			console.log(areaList[i].json的属性);
+		}
+	}
+
+</script>
+
+
+// 后端向前端发送json
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+       
+        ArrayList<Area> areaList = new ArrayList();
+		areaList里面需要有
+
+        JSONObject jsonObject = new JSONObject();
+		//put进入JSONObject中的对象
+        //  String  int  Integer    很少见
+        //  数组[]   集合  List   Set   Map   对象
+        jsonObject.put("areaList",areaList);
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(jsonObject.toJSONString());
+
+    }

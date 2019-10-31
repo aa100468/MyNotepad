@@ -13,7 +13,7 @@
 	// xmlhttp.send()；//不传参
 	var json = {
 		"name" : "小明",
-		"sex" : 16
+		"age" : 16
 	}
 	//前端向后端发送json
 	var jsonStr = JSON.stringify(json);//或者直接写个json格式的字符串也行

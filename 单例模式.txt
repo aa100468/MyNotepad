@@ -1,6 +1,14 @@
-//饿汉式
+//最好的方式 +了个final
     private SingleTon(){}
     private static final SingleTon singleton = new SingleTon();
+    public static SingleTon getSingleton(){
+        return singleton;
+    }
+
+
+//饿汉式
+    private SingleTon(){}
+    private static SingleTon singleton = new SingleTon();
     public static SingleTon getSingleton(){
         return singleton;
     }

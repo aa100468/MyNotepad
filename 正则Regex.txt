@@ -1,0 +1,51 @@
+package regex;
+
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class TestRegex {
+
+    public static void main(String[] args) {
+
+        //  参考官方API文档
+
+        //  [abc]   				a b c其中的一个
+        //  [^abc]  				除了abc以外其他都可以
+        //  [A-Za-z]   				A-Z a-z
+        //  [a-z&&[^bc]]  			a-z范围 不能是bc
+        //  .   代表任意一个字符
+        //  \d  [0-9]   				数字
+        //  \D  [^0-9]				非数字   
+        //  \s  space留白     			一个空格  一个回车 一个换行
+        //  \S  非留白         			\n换行   \r回车
+        //  \w  word单词  			[0-9A-Za-z]
+        //  \W  非单词
+
+        //  ?   0-1次
+        //  *   0-n次
+        //  +   1-n次
+        //  {n} n表示固定出现的次数
+        //  {m,n}   m-n
+        //  {n,}    至少出现n次
+
+
+//        boolean value = str.matches("[0-9]{6}");
+//        System.out.println(value);
+//        是否是一个固定6位数
+
+
+        //1.提供一个字符串(被解析)
+        String str = "150000adh410000zzt331200abc221400zzz409000opq518000";
+        //2.利用Pattern类创建一个模式对象
+        Pattern pattern = Pattern.compile("\\d{6}");
+        //3.利用pattern对象创建一个匹配器
+        Matcher matcher = pattern.matcher(str);
+        //4.matcher对象帮我们分析了str   看里面有多少字符串满足pattern规定的格式
+        while(matcher.find()){
+            String result = matcher.group();
+            System.out.println(result);
+        }
+
+    }
+}

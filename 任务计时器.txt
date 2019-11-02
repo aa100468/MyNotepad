@@ -1,0 +1,11 @@
+public void timer() throws ParseException {
+        Timer timer = new Timer();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date firstTime = sdf.parse("2019-11-20 11:50:00");
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //每隔20秒做些什么事情
+            }
+        },firstTime,2000);
+    }

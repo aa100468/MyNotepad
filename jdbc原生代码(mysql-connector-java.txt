@@ -1,0 +1,71 @@
+package test;
+import java.sql.*;
+public class Main {
+
+    static final String DRIVER = "com.mysql.jdbc.Driver";
+    static final String URL = "jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=utf-8";
+    //如果依旧乱码，尝试设置虚拟机：-Dfile.encoding=UTF-8
+    static final String USER = "root";
+    static final String PASSWORD = "root";
+
+
+    private static void jdbc(String sql){
+        Connection conn = null;
+        PreparedStatement pstat = null;
+//        Statement stat = null;
+        ResultSet rs = null;
+        try {
+            Class.forName(DRIVER);
+            conn = DriverManager.getConnection(URL,USER,PASSWORD);
+            pstat = conn.prepareStatement(sql);
+//            pstat.setString(1,"");
+            rs = pstat.executeQuery();
+            while (rs.next()){
+                System.out.println(rs.getString(1));
+            }
+//            int count = pstat.executeUpdate();
+
+//            Statement stat = conn.createStatement();
+//            rs = stat.executeQuery(sql);
+//            count = stat.executeUpdate(sql);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+//            if(rs != null){
+//                try {
+//                    rs.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if(stat != null){
+//                try {
+//                    stat.close();
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+            if(pstat != null){
+                try {
+                    pstat.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(conn != null){
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Main.jdbc("select * from test1_1;");
+    }
+}

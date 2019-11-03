@@ -10,8 +10,11 @@ public class TestRegex {
 
         //  参考官方API文档
 
+        //  ^  开始
+        //  $  结束
+        
         //  [abc]   				a b c其中的一个
-        //  [^abc]  				除了abc以外其他都可以
+        //  [^abc]  				除了abc以外其他都可以（^放在中括号里）
         //  [A-Za-z]   				A-Z a-z
         //  [a-z&&[^bc]]  			a-z范围 不能是bc
         //  .   代表任意一个字符

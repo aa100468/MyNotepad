@@ -5,6 +5,7 @@ public class TestMain {
         String url = "src/properties/p.properties";
         try {
             Properties properties = new Properties();
+//           InputStream inputStream =  Thread.currentThread().getContextClassLoader().getResourceAsStream(url);
 //            BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(url));
             BufferedReader bufferedReader = new BufferedReader(new FileReader(url));
             properties.load(bufferedReader);
